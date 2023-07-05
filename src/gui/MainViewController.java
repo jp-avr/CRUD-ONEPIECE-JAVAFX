@@ -15,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
+import model.services.PirataService;
 
 public class MainViewController implements Initializable{
 
@@ -62,21 +63,47 @@ public class MainViewController implements Initializable{
     @FXML
     private MenuItem menuItemLerDadosArma;
 
+    //TODOS DE ARMA DO PERSONAGEM
+    @FXML MenuItem menuItemInserirArmaPersonagem;
+
+    @FXML MenuItem menuItemLerDadosArmaPersonagem;
+
+    //TODOS DE ARCO
     @FXML
-    private MenuItem menuItemArco;
+    private MenuItem menuItemInserirArco;
 
     @FXML
-    private MenuItem menuItemAkumaNoMi;
+    private MenuItem menuItemLerDadosArco;
+
+    //TODOS DE AKUMA NO MI
+    @FXML
+    private MenuItem menuItemInserirAkumaNoMi;
 
     @FXML
-    private MenuItem menuItemTripulacao;
+    private MenuItem menuItemLerDadosAkumaNoMi;
+
+    //Todos de Tripulação
+    @FXML
+    private MenuItem menuItemInserirTripulacao;
 
     @FXML
-    private MenuItem menuItemTipo;
+    private MenuItem menuItemLerDadosTripulacao;
+
+    //Todos de Tipo
+    @FXML
+    private MenuItem menuItemInserirTipo;
 
     @FXML
-    private MenuItem menuItemAlianca;
+    private MenuItem menuItemLerDadosTipo;
 
+    //Todos de Aliança
+    @FXML
+    private MenuItem menuItemInserirAlianca;
+
+    @FXML
+    private MenuItem menuItemLerDadosAlianca;
+
+    //Sobre o programa
     @FXML
     private MenuItem menuItemAbout;
 
@@ -100,7 +127,7 @@ public class MainViewController implements Initializable{
     //ACTIONS DE PIRATAS
     @FXML
     public void onMenuItemInserirPirataAction(){
-        loadView("/gui/PirataRegistration.fxml");;
+        loadView2("/gui/PirataRegistration.fxml");;
     }
 
     @FXML
@@ -150,32 +177,73 @@ public class MainViewController implements Initializable{
         System.out.println("onMenuItemLerDadosArmaAction");
     }
 
+    //ACTIONS DE ARMA DO PERSONAGEM
+    @FXML
+    public void onMenuItemInserirArmaPersonagemAction(){
+        System.out.println("onMenuItemInserirArmaPersonagemAction");
+    }
+
+    @FXML
+    public void onMenuItemLerDadosArmaPersonagemAction(){
+        System.out.println("onMenuItemLerDadosArmaPersonagemAction");
+    }
+
     //ACTIONS DE ARCO
     @FXML
-    public void onMenuItemArcoAction(){
-        System.out.println("onMenuItemArcoAction");
+    public void onMenuItemInserirArcoAction(){
+        System.out.println("onMenuItemInserirArcoAction");
     }
 
     @FXML
-    public void onMenuItemAkumaNoMiAction(){
-        System.out.println("onMenuItemAkumaNoMiAction");
+    public void onMenuItemLerDadosArcoAction(){
+        System.out.println("onMenuItemLerDadosArcoAction");
+    }
+
+    //ACTIONS DE AKUMANOMI
+    @FXML
+    public void onMenuItemInserirAkumaNoMiAction(){
+        System.out.println("onMenuItemInserirAkumaNoMiAction");
     }
 
     @FXML
-    public void onMenuItemTripulacaoAction(){
-        System.out.println("onMenuItemTripulacaoAction");
+    public void onMenuItemLerDadosAkumaNoMiAction(){
+        System.out.println("onMenuItemLerDadosAkumaNoMiAction");
+    }
+
+    //ACTIONS DE TRIPULACAO
+    @FXML
+    public void onMenuItemInserirTripulacaoAction(){
+        System.out.println("onMenuItemInserirTripulacaoAction");
     }
 
     @FXML
-    public void onMenuItemTipoAction(){
-        System.out.println("onMenuItemTipoAction");
+    public void onMenuItemLerDadosTripulacaoAction(){
+        System.out.println("onMenuItemLerDadosTripulacaoAction");
+    }
+    
+    //ACTIONS TIPO
+    @FXML
+    public void onMenuItemInserirTipoAction(){
+        System.out.println("onMenuItemInserirTipoAction");
     }
 
     @FXML
-    public void onMenuItemAliancaAction(){
-        System.out.println("onMenuItemAliancaAction");
+    public void onMenuItemLerDadosTipoAction(){
+        System.out.println("onMenuItemLerDadosTipoAction");
+    }   
+
+    //ACTIONS DE ALIANCA
+    @FXML
+    public void onMenuItemInserirAliancaAction(){
+        System.out.println("onMenuItemInserirAliancaAction");
     }
 
+    @FXML
+    public void onMenuItemLerDadosAliancaAction(){
+        System.out.println("onMenuItemLerDadosAliancaAction");
+    }   
+
+    //ACTIONS DO SOBRE
     @FXML
     public void onMenuItemAboutAction() {
         loadView("/gui/Abouts.fxml");
@@ -197,6 +265,28 @@ public class MainViewController implements Initializable{
         mainVBox.getChildren().clear(); //Limpa todos os filhos do mainVBox
         mainVBox.getChildren().add(mainMenu);
         mainVBox.getChildren().addAll(newVBox.getChildren());
+
+        }catch (IOException e) {
+            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+        }
+    }
+
+    private synchronized void loadView2(String absoluteName) {
+        try{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+        VBox newVBox = loader.load(); 
+
+        Scene mainScene = Main.getMainScene();
+        VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent(); //Pega o conteúdo da primeira linha do VBox
+
+        Node mainMenu = mainVBox.getChildren().get(0);//Pega os 'filhos' do VBox e get o primeiro filho
+        mainVBox.getChildren().clear(); //Limpa todos os filhos do mainVBox
+        mainVBox.getChildren().add(mainMenu);
+        mainVBox.getChildren().addAll(newVBox.getChildren());
+
+        PirataRegistrationController controller = loader.getController();
+        controller.setPirataService(new PirataService());
+        controller.updateTableView();
 
         }catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);

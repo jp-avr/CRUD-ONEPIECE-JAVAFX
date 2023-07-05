@@ -6,9 +6,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="342.0" prefWidth="596.0">
+      <VBox prefHeight="498.0" prefWidth="651.0">
          <children>
             <MenuBar>
               <menus>
@@ -45,34 +45,40 @@
                         <MenuItem fx:id="menuItemLerDadosArma" mnemonicParsing="false" onAction="#onMenuItemLerDadosArmaAction" text="Ler dados" />
                      </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Arma Personagem">
+                     <items>
+                        <MenuItem fx:id="menuItemInserirArmaPersonagem" mnemonicParsing="false" onAction="#onMenuItemInserirArmaPersonagemAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosArmaPersonagem" mnemonicParsing="false" onAction="#onMenuItemLerDadosArmaPersonagemAction" text="Ler dados" />
+                     </items>
+                  </Menu>
                   <Menu fx:id="menuItemArco" mnemonicParsing="false" text="Arco">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Inserir" />
-                        <MenuItem mnemonicParsing="false" text="Ler" />
+                        <MenuItem fx:id="menuItemInserirArco" mnemonicParsing="false" onAction="#onMenuItemInserirArcoAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosArco" mnemonicParsing="false" onAction="#onMenuItemLerDadosArcoAction" text="Ler" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuItemAkumaNoMi" mnemonicParsing="false" text="Akuma no Mi">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Inserir" />
-                        <MenuItem mnemonicParsing="false" text="Ler Dados" />
+                        <MenuItem fx:id="menuItemInserirAkumaNoMi" mnemonicParsing="false" onAction="#onMenuItemInserirAkumaNoMiAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosAkumaNoMi" mnemonicParsing="false" onAction="#onMenuItemLerDadosAkumaNoMiAction" text="Ler Dados" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuItemTripulacao" mnemonicParsing="false" text="Tripulação">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Inserir" />
-                        <MenuItem mnemonicParsing="false" text="Ler Dados" />
+                        <MenuItem fx:id="menuItemInserirTripulacao" mnemonicParsing="false" onAction="#onMenuItemInserirTripulacaoAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosTripulacao" mnemonicParsing="false" onAction="#onMenuItemLerDadosTripulacaoAction" text="Ler Dados" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuItemTipo" mnemonicParsing="false" text="Tipo">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Inserir" />
-                        <MenuItem mnemonicParsing="false" text="Ler Dados" />
+                        <MenuItem fx:id="menuItemInserirTipo" mnemonicParsing="false" onAction="#onMenuItemInserirTipoAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosTipo" mnemonicParsing="false" onAction="#onMenuItemLerDadosTipoAction" text="Ler Dados" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuItemAlianca" mnemonicParsing="false" text="Aliança">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Inserir" />
-                        <MenuItem mnemonicParsing="false" text="Ler Dados" />
+                        <MenuItem fx:id="menuItemInserirAlianca" mnemonicParsing="false" onAction="#onMenuItemInserirAliancaAction" text="Inserir" />
+                        <MenuItem fx:id="menuItemLerDadosAlianca" mnemonicParsing="false" onAction="#onMenuItemLerDadosAliancaAction" text="Ler Dados" />
                      </items>
                   </Menu>
                   <Menu fx:id="menuItemAlianca1" mnemonicParsing="false" text="About">
