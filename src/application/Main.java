@@ -1,3 +1,4 @@
+package application;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -7,6 +8,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 public class Main extends Application{
+
+    private static Scene mainScene;
 
     @Override
     public void start(Stage primaryStage){
@@ -19,13 +22,17 @@ public class Main extends Application{
            sp.setFitToWidth(true);     
 
 
-           Scene mainScene = new Scene(sp);//Cena principal e passando como argumento o objeto principal da view
+           mainScene = new Scene(sp);//Cena principal e passando como argumento o objeto principal da view
            primaryStage.setScene(mainScene);//Setar a cena como a cena principal
            primaryStage.setTitle("ONE PIECE");//Titulo
            primaryStage.show();//Mostrar o palco
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static Scene getMainScene() {
+        return mainScene;
     }
 
     public static void main(String[] args){
