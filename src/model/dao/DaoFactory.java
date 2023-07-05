@@ -2,6 +2,7 @@ package model.dao;
 
 import db.DB;
 import model.dao.impl.PirataDaoJDBC;
+import model.dao.impl.AkumaNoMiDaoJDBC;
 import model.dao.impl.MarinhaDaoJDBC;
 
 public class DaoFactory {
@@ -12,5 +13,9 @@ public class DaoFactory {
 	
 	public static PirataDao createPirataDao() {
 		return new PirataDaoJDBC(DB.getConnection());
+	}
+
+	public static AkumaNoMiDao createAkumaNoMiDao() {
+		return new AkumaNoMiDaoJDBC(DB.getConnection());
 	}
 }

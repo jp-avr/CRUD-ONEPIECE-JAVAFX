@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
+import model.services.AkumaNoMiService;
 import model.services.MarinhaService;
 
 public class MainViewController implements Initializable{
@@ -210,7 +211,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE AKUMANOMI
     @FXML
     public void onMenuItemInserirAkumaNoMiAction(){
-        System.out.println("onMenuItemInserirAkumaNoMiAction");
+        loadView("/gui/AkumaNoMiRegistration.fxml", (AkumaNoMiRegistrationController controller) -> {
+            controller.setAkumaNoMiService(new AkumaNoMiService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
