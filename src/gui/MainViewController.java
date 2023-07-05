@@ -77,11 +77,14 @@ public class MainViewController implements Initializable{
     @FXML
     private MenuItem menuItemAlianca;
 
+    @FXML
+    private MenuItem menuItemAbout;
+
 
     //ACTIONS DE PERSONAGENS
     @FXML
     public void onMenuItemInserirPersonagemAction(){
-        loadView("/gui/Abouts.fxml");
+        System.out.println("onMenuItemInserirPersonagemAction");
     }
 
     @FXML
@@ -97,7 +100,7 @@ public class MainViewController implements Initializable{
     //ACTIONS DE PIRATAS
     @FXML
     public void onMenuItemInserirPirataAction(){
-        System.out.println("onMenuItemInserirPirataAction");
+        loadView("/gui/PirataRegistration.fxml");;
     }
 
     @FXML
@@ -171,6 +174,11 @@ public class MainViewController implements Initializable{
     @FXML
     public void onMenuItemAliancaAction(){
         System.out.println("onMenuItemAliancaAction");
+    }
+
+    @FXML
+    public void onMenuItemAboutAction() {
+        loadView("/gui/Abouts.fxml");
     }
 
     @Override

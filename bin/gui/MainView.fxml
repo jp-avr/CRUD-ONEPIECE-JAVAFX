@@ -75,6 +75,11 @@
                         <MenuItem mnemonicParsing="false" text="Ler Dados" />
                      </items>
                   </Menu>
+                  <Menu fx:id="menuItemAlianca1" mnemonicParsing="false" text="About">
+                     <items>
+                        <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#onMenuItemAboutAction" text="Sobre" />
+                     </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </children>
