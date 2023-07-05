@@ -25,11 +25,11 @@ public class Pirata {
         this.cod_pirata = cod_pirata;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 

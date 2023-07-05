@@ -34,7 +34,7 @@ public class PirataDaoJDBC implements PirataDao {
 			if (rs.next()) {
 				Pirata obj = new Pirata();
 				obj.setCod_pirata(rs.getInt("cod_pirata"));
-				obj.setnome(rs.getString("nome"));
+				obj.setNome(rs.getString("nome"));
                 obj.setRecompensa(rs.getLong("recompensa"));
                 obj.setCod_ilha(rs.getInt("cod_ilha"));
                 obj.setCod_tripulacao(rs.getInt("cod_tripulacao"));
@@ -65,7 +65,7 @@ public class PirataDaoJDBC implements PirataDao {
 			while (rs.next()) {
 				Pirata obj = new Pirata();
 				obj.setCod_pirata(rs.getInt("cod_pirata"));
-				obj.setnome(rs.getString("nome"));
+				obj.setNome(rs.getString("nome"));
                 obj.setRecompensa(rs.getLong("recompensa"));
                 obj.setCod_ilha(rs.getInt("cod_ilha"));
                 obj.setCod_tripulacao(rs.getInt("cod_tripulacao"));
@@ -93,7 +93,7 @@ public class PirataDaoJDBC implements PirataDao {
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getnome());
+			st.setString(1, obj.getNome());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -125,7 +125,7 @@ public class PirataDaoJDBC implements PirataDao {
 				"SET nome = ? " +
 				"WHERE cod_pirata = ?");
 
-			st.setString(1, obj.getnome());
+			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getCod_pirata());
 
 			st.executeUpdate();
