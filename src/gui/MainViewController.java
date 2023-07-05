@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import model.services.PirataService;
 import model.services.AkumaNoMiService;
 import model.services.MarinhaService;
+import model.services.PersonagemService;
 
 public class MainViewController implements Initializable{
 
@@ -114,7 +115,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE PERSONAGENS
     @FXML
     public void onMenuItemInserirPersonagemAction(){
-        System.out.println("onMenuItemInserirPersonagemAction");
+        loadView("/gui/PersonagemRegistration.fxml", (PersonagemRegistrationController controller) -> {
+            controller.setPersonagemService(new PersonagemService());
+            controller.updateTableView();
+        });
     }
 
     @FXML

@@ -23,40 +23,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.AkumaNoMi;
-import model.services.AkumaNoMiService;
+import model.entities.Personagem;
+import model.services.PersonagemService;
 
-public class AkumaNoMiRegistrationController implements Initializable{
+public class PersonagemRegistrationController implements Initializable{
 
-    private AkumaNoMiService service;
-
-    @FXML
-    private TableView<AkumaNoMi> tableViewPirata;
+    private PersonagemService service;
 
     @FXML
-    private TableColumn<AkumaNoMi, Integer> TableColumnCodFruta;
+    private TableView<Personagem> tableViewPirata;
 
     @FXML
-    private TableColumn<AkumaNoMi, String> TableColumnNome;
+    private TableColumn<Personagem, Integer> TableColumnCodPersonagem;
 
     @FXML
-    private TableColumn<AkumaNoMi, Integer> TableColumnCodTipo;
+    private TableColumn<Personagem, String> TableColumnCodPirata;
 
     @FXML
-    private TableColumn<AkumaNoMi, Integer> TableColumnCodPersonagem;
+    private TableColumn<Personagem, Integer> TableColumnCodMarinha;
 
     @FXML
     private Button btNew;
 
-    private ObservableList<AkumaNoMi> obsList;
+    private ObservableList<Personagem> obsList;
 
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/AkumaNoMiForm.fxml", parentStage);
+        createDialogForm("/gui/PersonagemForm.fxml", parentStage);
     }
 
-    public void setAkumaNoMiService(AkumaNoMiService service) {
+    public void setPersonagemService(PersonagemService service) {
         this.service = service;
     }
 
@@ -66,10 +63,9 @@ public class AkumaNoMiRegistrationController implements Initializable{
     }
 
     private void initializeNodes() {
-        TableColumnCodFruta.setCellValueFactory(new PropertyValueFactory<>("cod_fruta"));
-        TableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        TableColumnCodTipo.setCellValueFactory(new PropertyValueFactory<>("cod_tipo"));
         TableColumnCodPersonagem.setCellValueFactory(new PropertyValueFactory<>("cod_personagem"));
+        TableColumnCodPirata.setCellValueFactory(new PropertyValueFactory<>("cod_pirata"));
+        TableColumnCodMarinha.setCellValueFactory(new PropertyValueFactory<>("cod_marinha"));
 
         Stage stage = (Stage) Main.getMainScene().getWindow(); //Como Window é superclasse do Stage fazemos um down casting
         tableViewPirata.prefHeightProperty().bind(stage.heightProperty()); //Somente para o TableView acompanhar o tamanho da janela
@@ -80,7 +76,7 @@ public class AkumaNoMiRegistrationController implements Initializable{
         if (service == null) {
             throw new IllegalStateException("Service was null"); 
         }
-        List<AkumaNoMi> list = service.findAll();
+        List<Personagem> list = service.findAll();
         obsList = FXCollections.observableArrayList(list);
         tableViewPirata.setItems(obsList);
     }

@@ -4,6 +4,7 @@ import db.DB;
 import model.dao.impl.PirataDaoJDBC;
 import model.dao.impl.AkumaNoMiDaoJDBC;
 import model.dao.impl.MarinhaDaoJDBC;
+import model.dao.impl.PersonagemDaoJDBC;
 
 public class DaoFactory {
 
@@ -17,5 +18,9 @@ public class DaoFactory {
 
 	public static AkumaNoMiDao createAkumaNoMiDao() {
 		return new AkumaNoMiDaoJDBC(DB.getConnection());
+	}
+
+	public static PersonagemDao createPersonagemDao() {
+		return new PersonagemDaoJDBC(DB.getConnection());
 	}
 }
