@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
+import model.services.MarinhaService;
 
 public class MainViewController implements Initializable{
 
@@ -147,7 +148,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE MARINHA
     @FXML
     public void onMenuItemInserirMarinhaAction(){
-        System.out.println("onMenuItemMarinhaAction");
+        loadView("/gui/MarinhaRegistration.fxml", (MarinhaRegistrationController controller) -> {
+            controller.setMarinhaService(new MarinhaService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
