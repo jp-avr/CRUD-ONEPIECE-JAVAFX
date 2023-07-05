@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -127,7 +128,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE PIRATAS
     @FXML
     public void onMenuItemInserirPirataAction(){
-        loadView2("/gui/PirataRegistration.fxml");;
+        loadView("/gui/PirataRegistration.fxml", (PirataRegistrationController controller) -> {
+            controller.setPirataService(new PirataService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
@@ -246,14 +250,14 @@ public class MainViewController implements Initializable{
     //ACTIONS DO SOBRE
     @FXML
     public void onMenuItemAboutAction() {
-        loadView("/gui/Abouts.fxml");
+        loadView("/gui/Abouts.fxml", x -> {});
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {        
     }
 
-    private synchronized void loadView(String absoluteName) {
+    private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) { //Foi necessário parametrizar para não criar várias funções que fazem a mesma coisa
         try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
         VBox newVBox = loader.load(); 
@@ -266,31 +270,11 @@ public class MainViewController implements Initializable{
         mainVBox.getChildren().add(mainMenu);
         mainVBox.getChildren().addAll(newVBox.getChildren());
 
-        }catch (IOException e) {
-            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-        }
-    }
-
-    private synchronized void loadView2(String absoluteName) {
-        try{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-        VBox newVBox = loader.load(); 
-
-        Scene mainScene = Main.getMainScene();
-        VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent(); //Pega o conteúdo da primeira linha do VBox
-
-        Node mainMenu = mainVBox.getChildren().get(0);//Pega os 'filhos' do VBox e get o primeiro filho
-        mainVBox.getChildren().clear(); //Limpa todos os filhos do mainVBox
-        mainVBox.getChildren().add(mainMenu);
-        mainVBox.getChildren().addAll(newVBox.getChildren());
-
-        PirataRegistrationController controller = loader.getController();
-        controller.setPirataService(new PirataService());
-        controller.updateTableView();
+        T controller = loader.getController(); //Um controller genérico T que funciona para qualquer View
+        initializingAction.accept(controller); //Inicializando o controller
 
         }catch (IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
         }
-    }
-    
+    }    
 }
