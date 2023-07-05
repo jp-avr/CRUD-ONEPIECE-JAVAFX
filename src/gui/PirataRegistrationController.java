@@ -60,7 +60,7 @@ public class PirataRegistrationController implements Initializable{
 
     private void initializeNodes() {
         TableColumnCodPirata.setCellValueFactory(new PropertyValueFactory<>("cod_pirata"));
-        TableColumnNome.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         TableColumnRecompensa.setCellValueFactory(new PropertyValueFactory<>("recompensa"));
         TableColumnCodIlha.setCellValueFactory(new PropertyValueFactory<>("cod_ilha"));
         TableColumnCodTripulacao.setCellValueFactory(new PropertyValueFactory<>("cod_tripulacao"));

@@ -2,16 +2,16 @@ package model.entities;
 
 public class Marinha {
     private Integer cod_marinha;
-    private String name;
+    private String nome;
     private double recompensa;
     private Integer cod_ilha;
     private Integer cod_tripulacao;
 
     public Marinha() {}
 
-    public Marinha(Integer cod_marinha, String name, double recompensa, Integer cod_ilha, Integer cod_tripulacao) {
+    public Marinha(Integer cod_marinha, String nome, double recompensa, Integer cod_ilha, Integer cod_tripulacao) {
         this.cod_marinha = cod_marinha;
-        this.name = name;
+        this.nome = nome;
         this.recompensa = recompensa;
         this.cod_ilha = cod_ilha;
         this.cod_tripulacao = cod_tripulacao;
@@ -25,12 +25,12 @@ public class Marinha {
         this.cod_marinha = cod_marinha;
     }
 
-    public String getName() {
-        return name;
+    public String getnome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setnome(String nome) {
+        this.nome = nome;
     }
 
     public double getRecompensa() {
@@ -82,7 +82,7 @@ public class Marinha {
 
     @Override
     public String toString() {
-        return "Pirata [cod_marinha=" + cod_marinha + ", name=" + name + ", recompensa=" + recompensa + ", cod_ilha="
+        return "Pirata [cod_marinha=" + cod_marinha + ", nome=" + nome + ", recompensa=" + recompensa + ", cod_ilha="
                 + cod_ilha + ", cod_tripulacao=" + cod_tripulacao + "]";
     }
 

@@ -34,7 +34,7 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 			if (rs.next()) {
 				Marinha obj = new Marinha();
 				obj.setCod_marinha(rs.getInt("cod_marinha"));
-				obj.setName(rs.getString("nome"));
+				obj.setnome(rs.getString("nome"));
                 obj.setRecompensa(rs.getLong("recompensa"));
                 obj.setCod_ilha(rs.getInt("cod_ilha"));
                 obj.setCod_tripulacao(rs.getInt("cod_tripulacao"));
@@ -57,7 +57,7 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM pirata ORDER BY Name");
+				"SELECT * FROM pirata ORDER BY Nome");
 			rs = st.executeQuery();
 
 			List<Marinha> list = new ArrayList<>();
@@ -65,7 +65,7 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 			while (rs.next()) {
 				Marinha obj = new Marinha();
 				obj.setCod_marinha(rs.getInt("cod_marinha"));
-				obj.setName(rs.getString("nome"));
+				obj.setnome(rs.getString("nome"));
                 obj.setRecompensa(rs.getLong("recompensa"));
                 obj.setCod_ilha(rs.getInt("cod_ilha"));
                 obj.setCod_tripulacao(rs.getInt("cod_tripulacao"));
@@ -93,7 +93,7 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 				"(?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setString(1, obj.getName());
+			st.setString(1, obj.getnome());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -125,7 +125,7 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 				"SET nome = ? " +
 				"WHERE cod_marinha = ?");
 
-			st.setString(1, obj.getName());
+			st.setString(1, obj.getnome());
 			st.setInt(2, obj.getCod_marinha());
 
 			st.executeUpdate();
