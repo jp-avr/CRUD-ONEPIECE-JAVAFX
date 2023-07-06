@@ -20,6 +20,7 @@ import model.services.PirataService;
 import model.services.AkumaNoMiService;
 import model.services.MarinhaService;
 import model.services.PersonagemService;
+import model.services.IlhaService;
 
 public class MainViewController implements Initializable{
 
@@ -172,7 +173,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE ILHA
     @FXML
     public void onMenuItemInserirIlhaAction(){
-        System.out.println("onMenuItemInserirIlhaAction");
+        loadView("/gui/IlhaRegistration.fxml", (IlhaRegistrationController controller) -> {
+            controller.setIlhaService(new IlhaService());
+            controller.updateTableView();
+        });
     }
 
     @FXML

@@ -3,6 +3,7 @@ package model.dao;
 import db.DB;
 import model.dao.impl.PirataDaoJDBC;
 import model.dao.impl.AkumaNoMiDaoJDBC;
+import model.dao.impl.IlhaDaoJDBC;
 import model.dao.impl.MarinhaDaoJDBC;
 import model.dao.impl.PersonagemDaoJDBC;
 
@@ -22,5 +23,9 @@ public class DaoFactory {
 
 	public static PersonagemDao createPersonagemDao() {
 		return new PersonagemDaoJDBC(DB.getConnection());
+	}
+
+	public static IlhaDao createIlhaDao() {
+		return new IlhaDaoJDBC(DB.getConnection());
 	}
 }
