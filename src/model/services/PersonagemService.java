@@ -13,4 +13,12 @@ public class PersonagemService {
     public List<Personagem> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Personagem obj) {
+        if (obj.getCod_personagem() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

@@ -13,4 +13,12 @@ public class TipoService {
     public List<Tipo> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Tipo obj) {
+        if (obj.getCod_tipo() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

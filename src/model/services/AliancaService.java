@@ -13,4 +13,12 @@ public class AliancaService {
     public List<Alianca> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Alianca obj) {
+        if (obj.getCod_alianca() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

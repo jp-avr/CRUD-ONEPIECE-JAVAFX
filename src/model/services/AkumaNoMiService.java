@@ -13,4 +13,12 @@ public class AkumaNoMiService {
     public List<AkumaNoMi> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(AkumaNoMi obj) {
+        if (obj.getCod_fruta() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

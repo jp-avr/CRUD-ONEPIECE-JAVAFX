@@ -13,4 +13,12 @@ public class ArcoService {
     public List<Arco> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Arco obj) {
+        if (obj.getCod_arco() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

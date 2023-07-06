@@ -13,4 +13,12 @@ public class IlhaService {
     public List<Ilha> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Ilha obj) {
+        if (obj.getCod_ilha() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

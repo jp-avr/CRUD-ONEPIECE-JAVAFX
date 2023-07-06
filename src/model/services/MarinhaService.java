@@ -13,4 +13,12 @@ public class MarinhaService {
     public List<Marinha> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Marinha obj) {
+        if (obj.getCod_marinha() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

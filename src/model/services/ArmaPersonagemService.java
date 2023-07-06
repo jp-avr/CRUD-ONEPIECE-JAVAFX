@@ -13,4 +13,12 @@ public class ArmaPersonagemService {
     public List<ArmaPersonagem> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(ArmaPersonagem obj) {
+        if (obj.getCod_personagem() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }
