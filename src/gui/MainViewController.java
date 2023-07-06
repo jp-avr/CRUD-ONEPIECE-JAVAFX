@@ -18,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
 import model.services.AkumaNoMiService;
+import model.services.ArcoService;
 import model.services.ArmaPersonagemService;
 import model.services.ArmaService;
 import model.services.MarinhaService;
@@ -216,7 +217,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE ARCO
     @FXML
     public void onMenuItemInserirArcoAction(){
-        System.out.println("onMenuItemInserirArcoAction");
+        loadView("/gui/ArcoRegistration.fxml", (ArcoRegistrationController controller) -> {
+            controller.setArcoService(new ArcoService());
+            controller.updateTableView();
+        });
     }
 
     @FXML

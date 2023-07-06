@@ -3,6 +3,7 @@ package model.dao;
 import db.DB;
 import model.dao.impl.PirataDaoJDBC;
 import model.dao.impl.AkumaNoMiDaoJDBC;
+import model.dao.impl.ArcoDaoJDBC;
 import model.dao.impl.ArmaDaoJDBC;
 import model.dao.impl.ArmaPersonagemDaoJDBC;
 import model.dao.impl.IlhaDaoJDBC;
@@ -37,6 +38,10 @@ public class DaoFactory {
 
 	public static ArmaPersonagemDao createArmaPersonagemDao() {
 		return new ArmaPersonagemDaoJDBC(DB.getConnection());
+	}
+
+	public static ArcoDao createArcoDao() {
+		return new ArcoDaoJDBC(DB.getConnection());
 	}
 	
 }
