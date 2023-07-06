@@ -1,15 +1,20 @@
 package model.entities;
 
-public class Pirata {
+import java.io.Serializable;
+
+public class Pirata implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     private Integer cod_pirata;
     private String nome;
-    private double recompensa;
+    private Integer recompensa;
     private Integer cod_ilha;
     private Integer cod_tripulacao;
 
     public Pirata() {}
 
-    public Pirata(Integer cod_pirata, String nome, double recompensa, Integer cod_ilha, Integer cod_tripulacao) {
+    public Pirata(Integer cod_pirata, String nome, Integer recompensa, Integer cod_ilha, Integer cod_tripulacao) {
         this.cod_pirata = cod_pirata;
         this.nome = nome;
         this.recompensa = recompensa;
@@ -33,11 +38,11 @@ public class Pirata {
         this.nome = nome;
     }
 
-    public double getRecompensa() {
+    public Integer getRecompensa() {
         return recompensa;
     }
 
-    public void setRecompensa(double recompensa) {
+    public void setRecompensa(Integer recompensa) {
         this.recompensa = recompensa;
     }
 

@@ -13,4 +13,12 @@ public class PirataService {
     public List<Pirata> findAll(){
         return dao.findAll();
     }
+
+    public void saveOrUpdate(Pirata obj) {
+        if (obj.getCod_pirata() == null) {
+            dao.insert(obj);
+        }else{
+            dao.update(obj);
+        }
+    }
 }

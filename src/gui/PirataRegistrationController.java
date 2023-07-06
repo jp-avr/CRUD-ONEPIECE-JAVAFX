@@ -98,6 +98,7 @@ public class PirataRegistrationController implements Initializable{
 
             PirataFormController controller = loader.getController(); //Pegar o controlador da tela que acabei de carregar
             controller.setPirata(obj); //Injetando no controlador o Pirata
+            controller.setPirataService(new PirataService());
             controller.updateFormData(); //Carregar os dados no formulario
 
             Stage dialogStage = new Stage();

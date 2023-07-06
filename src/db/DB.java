@@ -18,7 +18,7 @@ public class DB {
             try{
                 Properties props = loadProperties();
                 String url = props.getProperty("dburl");
-                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/prova3DB", "postgres", "1234");
+                conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/prova3DB2", "postgres", "1234");
             }catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
