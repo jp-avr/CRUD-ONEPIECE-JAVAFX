@@ -56,7 +56,8 @@ public class PirataRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/PirafaForm.fxml", parentStage);
+        Pirata obj = new Pirata();
+        createDialogForm(obj, "/gui/PirafaForm.fxml", parentStage);
     }
 
     public void setPirataService(PirataService service) {
@@ -90,10 +91,14 @@ public class PirataRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Pirata obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            PirataFormController controller = loader.getController(); //Pegar o controlador da tela que acabei de carregar
+            controller.setPirata(obj); //Injetando no controlador o Pirata
+            controller.updateFormData(); //Carregar os dados no formulario
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

@@ -9,8 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Pirata;
 
 public class PirataFormController implements Initializable {
+
+    private Pirata entity;
 
     @FXML
     private TextField txtCodPirata;
@@ -48,6 +51,10 @@ public class PirataFormController implements Initializable {
     @FXML
     private Button btCancelar;
 
+    public void setPirata(Pirata entity) {
+        this.entity = entity;
+    }
+
     @FXML
     public void onBtSalvarAction(){
         System.out.println("onBtSalvarAction");
@@ -69,6 +76,18 @@ public class PirataFormController implements Initializable {
         Constraints.setTextFieldInteger(txtCodTripulacao);
         Constraints.setTextFieldInteger(txtRecompensa);
         Constraints.setTextFieldMaxLength(txtNome, 30);
+    }
+
+    public void updateFormData() {
+        if (entity == null) {
+            throw new IllegalStateException("Entity tava vazio");
+        }
+        txtCodPirata.setText(String.valueOf(entity.getCod_pirata())); //Como ele só trabalha com string usamos o valueOf
+        txtNome.setText(entity.getNome());
+        txtRecompensa.setText(String.valueOf(entity.getRecompensa()));
+        txtCodIlha.setText(String.valueOf(entity.getCod_ilha()));
+        txtCodTripulacao.setText(String.valueOf(entity.getCod_tripulacao()));
+
     }
     
     
