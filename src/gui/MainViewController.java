@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
+import model.services.TripulacaoService;
 import model.services.AkumaNoMiService;
 import model.services.ArcoService;
 import model.services.ArmaPersonagemService;
@@ -245,7 +246,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE TRIPULACAO
     @FXML
     public void onMenuItemInserirTripulacaoAction(){
-        System.out.println("onMenuItemInserirTripulacaoAction");
+        loadView("/gui/TripulacaoRegistration.fxml", (TripulacaoRegistrationController controller) -> {
+            controller.setTripulacaoService(new TripulacaoService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
