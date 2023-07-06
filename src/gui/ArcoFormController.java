@@ -47,10 +47,21 @@ public class ArcoFormController implements Initializable {
     }
 
     @FXML
-    public void onBtSalvarAction(){
-        entity = getFormData(); //Responsável por pegar os dados do formulário
-        service.saveOrUpdate(entity);
-    }
+    public void onBtSalvarAction(ActionEvent event){
+	if (entity == null) {
+		throw new IllegalStateException("Entitiy nulo");
+	}
+	if (service == null) {
+		throw new IllegalStateException("Service nulo");
+	}
+	try {
+        	entity = getFormData(); //Responsável por pegar os dados do formulário
+        	service.saveOrUpdate(entity);
+		Utils.currentStage(event).close();
+	}catch (DbException e) {
+		Alerts.showAlert("Error Saving Object", null, e.getMessage(), AlertType.ERROR);
+    	}
+}
 
     private Arco getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
         Arco obj = new Arco();
@@ -62,8 +73,8 @@ public class ArcoFormController implements Initializable {
     }
 
     @FXML
-    public void onBtCancelarAction(){
-        System.out.println("onBtCancelarAction");
+    public void onBtCancelarAction(ActionEvent event){
+        Utils.currentStage(event).close();
     }
 
     @Override

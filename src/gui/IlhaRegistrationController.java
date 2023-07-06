@@ -50,7 +50,8 @@ public class IlhaRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/IlhaForm.fxml", parentStage);
+        Ilha obj = new Ilha();
+        createDialogForm(obj, "/gui/IlhaForm.fxml", parentStage);
     }
 
     public void setIlhaService(IlhaService service) {
@@ -82,10 +83,15 @@ public class IlhaRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Ilha obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            IlhaFormController controller = loader.getController();
+            controller.setIlha(obj);
+            controller.setIlhaService(new IlhaService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

@@ -3,13 +3,19 @@ package gui;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alerts;
+import javafx.scene.control.Alert.AlertType;
+import javafx.event.ActionEvent;
 import gui.util.Constraints;
 import gui.util.Utils;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 import model.entities.Pirata;
 import model.services.PirataService;
 
@@ -64,10 +70,21 @@ public class PirataFormController implements Initializable {
     }
 
     @FXML
-    public void onBtSalvarAction(){
-        entity = getFormData(); //Responsável por pegar os dados do formulário
-        service.saveOrUpdate(entity);
-    }
+    public void onBtSalvarAction(ActionEvent event){
+	if (entity == null) {
+		throw new IllegalStateException("Entitiy nulo");
+	}
+	if (service == null) {
+		throw new IllegalStateException("Service nulo");
+	}
+	try {
+        	entity = getFormData(); //Responsável por pegar os dados do formulário
+        	service.saveOrUpdate(entity);
+		Utils.currentStage(event).close();
+	}catch (DbException e) {
+		Alerts.showAlert("Error Saving Object", null, e.getMessage(), AlertType.ERROR);
+    	}
+}
 
     private Pirata getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
         Pirata obj = new Pirata();
@@ -82,8 +99,8 @@ public class PirataFormController implements Initializable {
     }
 
     @FXML
-    public void onBtCancelarAction(){
-        System.out.println("onBtCancelarAction");
+    public void onBtCancelarAction(ActionEvent event){
+        Utils.currentStage(event).close();
     }
 
     @Override

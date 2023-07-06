@@ -12,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Arma;
 import model.services.ArmaService;
+import db.DbException;
+import gui.util.Alerts;
+import javafx.scene.control.Alert.AlertType;
+import javafx.event.ActionEvent;
 
 public class ArmaFormController implements Initializable {
 
@@ -46,10 +50,21 @@ public class ArmaFormController implements Initializable {
     }
 
     @FXML
-    public void onBtSalvarAction(){
-        entity = getFormData(); //Responsável por pegar os dados do formulário
-        service.saveOrUpdate(entity);
-    }
+    public void onBtSalvarAction(ActionEvent event){
+	if (entity == null) {
+		throw new IllegalStateException("Entitiy nulo");
+	}
+	if (service == null) {
+		throw new IllegalStateException("Service nulo");
+	}
+	try {
+        	entity = getFormData(); //Responsável por pegar os dados do formulário
+        	service.saveOrUpdate(entity);
+		Utils.currentStage(event).close();
+	}catch (DbException e) {
+		Alerts.showAlert("Error Saving Object", null, e.getMessage(), AlertType.ERROR);
+    	}
+}
 
     private Arma getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
         Arma obj = new Arma();
@@ -61,8 +76,8 @@ public class ArmaFormController implements Initializable {
     }
 
     @FXML
-    public void onBtCancelarAction(){
-        System.out.println("onBtCancelarAction");
+    public void onBtCancelarAction(ActionEvent event){
+        Utils.currentStage(event).close();
     }
 
     @Override
