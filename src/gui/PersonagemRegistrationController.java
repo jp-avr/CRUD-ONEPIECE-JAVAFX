@@ -9,6 +9,7 @@ import application.Main;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -42,6 +44,9 @@ public class PersonagemRegistrationController implements Initializable, DataChan
 
     @FXML
     private TableColumn<Personagem, Integer> TableColumnCodMarinha;
+
+    @FXML
+    private TableColumn<Personagem, Personagem> TableColumnEDIT;
 
     @FXML
     private Button btNew;
@@ -81,6 +86,7 @@ public class PersonagemRegistrationController implements Initializable, DataChan
         List<Personagem> list = service.findAll();
         obsList = FXCollections.observableArrayList(list);
         tableViewPirata.setItems(obsList);
+        initEditButtons();
     }
 
     private void createDialogForm(Personagem obj, String absoluteName, Stage parentStage) {
@@ -108,6 +114,27 @@ public class PersonagemRegistrationController implements Initializable, DataChan
 
     public void onDataChanged() {
         updateTableView();
+    }
+
+    private void initEditButtons() {
+        TableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        TableColumnEDIT.setCellFactory(param -> new TableCell<Personagem, Personagem>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(Personagem obj, boolean empty) {
+                super.updateItem(obj, empty);
+
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(button);
+                button.setOnAction(
+                    event -> createDialogForm(obj, "/gui/PersonagemForm.fxml", Utils.currentStage(event)));
+            }           
+        });
     }
     
 }

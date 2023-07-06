@@ -29,6 +29,7 @@
           <TableColumn fx:id="TableColumnCodTripulacao" prefWidth="95.99996948242188" text="Cod_tripulacao" />
           <TableColumn fx:id="TableColumnNome" prefWidth="81.33328247070312" text="Nome" />
             <TableColumn fx:id="TableColumnCodAlianca" prefWidth="88.66668701171875" text="Cod_alianca" />
+            <TableColumn fx:id="TableColumnEDIT" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

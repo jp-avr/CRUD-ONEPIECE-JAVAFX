@@ -120,12 +120,12 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE armapersonagem " +
-				"SET cod_armapersonagem = ? " +
+				"SET cod_arma = ? " +
 				"WHERE cod_armapersonagem = ?");
 
 			
-			st.setInt(1, obj.getCod_personagem());
-			st.setInt(2, obj.getCod_arma());
+			st.setInt(1, obj.getCod_arma());
+			st.setInt(2, obj.getCod_armapersonagem());
 
 			st.executeUpdate();
 		}

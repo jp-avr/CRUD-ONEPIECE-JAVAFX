@@ -125,10 +125,11 @@ public class MarinhaDaoJDBC implements MarinhaDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE marinha " +
-				"SET nome = ? " +
+				"SET recompensa = ? " +
 				"WHERE cod_marinha = ?");
-
-			st.setString(1, obj.getNome());
+				
+			st.setInt(1, obj.getRecompensa());
+			//st.setString(1, obj.getNome());
 			st.setInt(2, obj.getCod_marinha());
 
 			st.executeUpdate();

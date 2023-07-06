@@ -31,6 +31,7 @@
             <TableColumn fx:id="TableColumnRecompensa" prefWidth="81.33331298828125" text="Recompensa" />
             <TableColumn fx:id="TableColumnCodIlha" prefWidth="81.33331298828125" text="Cod_ilha" />
             <TableColumn fx:id="TableColumnCodTripulacao" prefWidth="90.66668701171875" text="Cod_tripulacao" />
+            <TableColumn fx:id="TableColumnEDIT" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

@@ -119,10 +119,10 @@ public class TripulacaoDaoJDBC implements TripulacaoDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE tripulacao " +
-				"SET nome = ? " +
+				"SET cod_alianca = ? " +
 				"WHERE cod_tripulacao = ?");
 
-			st.setString(1, obj.getNome());
+			st.setInt(1, obj.getCod_alianca());
 			st.setInt(2, obj.getCod_tripulacao());
 
 			st.executeUpdate();

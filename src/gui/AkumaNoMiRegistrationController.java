@@ -9,6 +9,7 @@ import application.Main;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,6 +47,9 @@ public class AkumaNoMiRegistrationController implements Initializable, DataChang
 
     @FXML
     private TableColumn<AkumaNoMi, Integer> TableColumnCodPersonagem;
+
+    @FXML
+    private TableColumn<AkumaNoMi, AkumaNoMi> TableColumnEDIT;
 
     @FXML
     private Button btNew;
@@ -85,6 +90,7 @@ public class AkumaNoMiRegistrationController implements Initializable, DataChang
         List<AkumaNoMi> list = service.findAll();
         obsList = FXCollections.observableArrayList(list);
         tableViewPirata.setItems(obsList);
+        initEditButtons();
     }
 
     private void createDialogForm(AkumaNoMi obj, String absoluteName, Stage parentStage) {
@@ -112,6 +118,27 @@ public class AkumaNoMiRegistrationController implements Initializable, DataChang
 
     public void onDataChanged() {
         updateTableView();
+    }
+
+    private void initEditButtons() {
+        TableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        TableColumnEDIT.setCellFactory(param -> new TableCell<AkumaNoMi, AkumaNoMi>() {
+            private final Button button = new Button("Editar");
+
+            @Override
+            protected void updateItem(AkumaNoMi obj, boolean empty) {
+                super.updateItem(obj, empty);
+
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(button);
+                button.setOnAction(
+                    event -> createDialogForm(obj, "/gui/AkumaNoMiForm.fxml", Utils.currentStage(event)));
+            }           
+        });
     }
     
 }

@@ -29,6 +29,7 @@
           <TableColumn fx:id="TableColumnCodIlha" prefWidth="75.0" text="Cod_ilha" />
           <TableColumn fx:id="TableColumnNome" prefWidth="134.0" text="Nome" />
             <TableColumn fx:id="TableColumnCodArco" prefWidth="86.6666259765625" text="Cod_arco" />
+            <TableColumn fx:id="TableColumnEDIT" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

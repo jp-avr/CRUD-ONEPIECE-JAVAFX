@@ -125,10 +125,11 @@ public class PirataDaoJDBC implements PirataDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE pirata " +
-				"SET nome = ? " +
+				"SET recompensa = ? " +
 				"WHERE cod_pirata = ?");
 
-			st.setString(1, obj.getNome());
+			st.setInt(1, obj.getRecompensa());
+			//st.setString(1, obj.getNome());
 			st.setInt(2, obj.getCod_pirata());
 
 			st.executeUpdate();

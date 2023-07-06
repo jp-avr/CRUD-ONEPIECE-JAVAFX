@@ -103,7 +103,7 @@ public class AliancaFormController implements Initializable {
 
     private void initializeNodes(){
         Constraints.setTextFieldInteger(txtCodAlianca);
-        Constraints.setTextFieldMaxLength(txtNome, 30);
+        Constraints.setTextFieldMaxLength(txtNome, 50);
     }
 
     public void updateFormData() {

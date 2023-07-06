@@ -7,7 +7,7 @@
 
 <VBox prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="About">
+      <Label text="Sobre">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -15,7 +15,7 @@
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </Label>
-      <Label text="JavaFX application demo">
+      <Label prefWidth="400.0" text="Programa feito no JavaFX para a cadeira de Paradigmas">
          <padding>
             <Insets left="20.0" />
          </padding>

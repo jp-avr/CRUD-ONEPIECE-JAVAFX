@@ -122,10 +122,10 @@ public class AkumaNoMiDaoJDBC implements AkumaNoMiDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE akumanomi " +
-				"SET nome = ? " +
+				"SET cod_personagem = ? " +
 				"WHERE cod_fruta = ?");
 
-			st.setString(1, obj.getNome());
+			st.setInt(1, obj.getCod_personagem());
 			st.setInt(2, obj.getCod_fruta());
 
 			st.executeUpdate();
