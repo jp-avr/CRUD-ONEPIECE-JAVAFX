@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Personagem;
 import model.services.PersonagemService;
 
-public class PersonagemRegistrationController implements Initializable{
+public class PersonagemRegistrationController implements Initializable, DataChangeListener{
 
     private PersonagemService service;
 
@@ -90,6 +91,7 @@ public class PersonagemRegistrationController implements Initializable{
             PersonagemFormController controller = loader.getController();
             controller.setPersonagem(obj);
             controller.setPersonagemService(new PersonagemService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -102,6 +104,10 @@ public class PersonagemRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

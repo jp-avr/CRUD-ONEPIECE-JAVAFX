@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Tripulacao;
 import model.services.TripulacaoService;
 
-public class TripulacaoRegistrationController implements Initializable{
+public class TripulacaoRegistrationController implements Initializable, DataChangeListener{
 
     private TripulacaoService service;
 
@@ -91,6 +92,7 @@ public class TripulacaoRegistrationController implements Initializable{
             TripulacaoFormController controller = loader.getController();
             controller.setTripulacao(obj);
             controller.setTripulacaoService(new TripulacaoService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -103,6 +105,10 @@ public class TripulacaoRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

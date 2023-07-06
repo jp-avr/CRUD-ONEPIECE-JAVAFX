@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Ilha;
 import model.services.IlhaService;
 
-public class IlhaRegistrationController implements Initializable{
+public class IlhaRegistrationController implements Initializable, DataChangeListener{
 
     private IlhaService service;
 
@@ -91,6 +92,7 @@ public class IlhaRegistrationController implements Initializable{
             IlhaFormController controller = loader.getController();
             controller.setIlha(obj);
             controller.setIlhaService(new IlhaService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -103,6 +105,10 @@ public class IlhaRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

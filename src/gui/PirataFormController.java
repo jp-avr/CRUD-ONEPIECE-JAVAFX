@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
@@ -24,6 +27,8 @@ public class PirataFormController implements Initializable {
     private Pirata entity;
 
     private PirataService service;
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>(); //permite outros objetos se inscreverem e receberem o evento
 
     @FXML
     private TextField txtCodPirata;
@@ -69,6 +74,10 @@ public class PirataFormController implements Initializable {
         this.service = service;
     }
 
+    public void subscribeDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
     @FXML
     public void onBtSalvarAction(ActionEvent event){
 	if (entity == null) {
@@ -78,13 +87,20 @@ public class PirataFormController implements Initializable {
 		throw new IllegalStateException("Service nulo");
 	}
 	try {
-        	entity = getFormData(); //Responsável por pegar os dados do formulário
+            entity = getFormData(); //Responsável por pegar os dados do formulário
         	service.saveOrUpdate(entity);
-		Utils.currentStage(event).close();
+            notifyDataChangeListeners();
+		    Utils.currentStage(event).close();
 	}catch (DbException e) {
 		Alerts.showAlert("Error Saving Object", null, e.getMessage(), AlertType.ERROR);
     	}
-}
+    }
+
+    private void notifyDataChangeListeners() {
+        for  (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
 
     private Pirata getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
         Pirata obj = new Pirata();

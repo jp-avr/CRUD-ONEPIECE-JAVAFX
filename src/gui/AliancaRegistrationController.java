@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Alianca;
 import model.services.AliancaService;
 
-public class AliancaRegistrationController implements Initializable{
+public class AliancaRegistrationController implements Initializable, DataChangeListener{
 
     private AliancaService service;
 
@@ -87,6 +88,7 @@ public class AliancaRegistrationController implements Initializable{
             AliancaFormController controller = loader.getController();
             controller.setAlianca(obj);
             controller.setAliancaService(new AliancaService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -99,6 +101,10 @@ public class AliancaRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

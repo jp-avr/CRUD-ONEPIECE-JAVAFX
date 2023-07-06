@@ -1,6 +1,8 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import gui.util.Constraints;
@@ -13,6 +15,7 @@ import javafx.scene.control.TextField;
 import model.entities.Personagem;
 import model.services.PersonagemService;
 import db.DbException;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import javafx.scene.control.Alert.AlertType;
 import javafx.event.ActionEvent;
@@ -22,6 +25,8 @@ public class PersonagemFormController implements Initializable {
     private Personagem entity;
 
     private PersonagemService service;
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
     private TextField txtCodPersonagem;
@@ -55,6 +60,10 @@ public class PersonagemFormController implements Initializable {
         this.service = service;
     }
 
+    public void subscribeDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
     @FXML
     public void onBtSalvarAction(ActionEvent event){
 	if (entity == null) {
@@ -64,13 +73,20 @@ public class PersonagemFormController implements Initializable {
 		throw new IllegalStateException("Service nulo");
 	}
 	try {
-        	entity = getFormData(); //Responsável por pegar os dados do formulário
+            entity = getFormData(); //Responsável por pegar os dados do formulário
         	service.saveOrUpdate(entity);
-		Utils.currentStage(event).close();
+            notifyDataChangeListeners();
+		    Utils.currentStage(event).close();
 	}catch (DbException e) {
 		Alerts.showAlert("Error Saving Object", null, e.getMessage(), AlertType.ERROR);
     	}
-}
+    }
+
+    private void notifyDataChangeListeners() {
+        for  (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
 
     private Personagem getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
         Personagem obj = new Personagem();

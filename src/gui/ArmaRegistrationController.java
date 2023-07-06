@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Arma;
 import model.services.ArmaService;
 
-public class ArmaRegistrationController implements Initializable{
+public class ArmaRegistrationController implements Initializable, DataChangeListener{
 
     private ArmaService service;
 
@@ -87,6 +88,7 @@ public class ArmaRegistrationController implements Initializable{
             ArmaFormController controller = loader.getController();
             controller.setArma(obj);
             controller.setArmaService(new ArmaService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -99,6 +101,10 @@ public class ArmaRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

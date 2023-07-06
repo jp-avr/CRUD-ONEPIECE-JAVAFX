@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Marinha;
 import model.services.MarinhaService;
 
-public class MarinhaRegistrationController implements Initializable{
+public class MarinhaRegistrationController implements Initializable, DataChangeListener{
 
     private MarinhaService service;
 
@@ -98,6 +99,7 @@ public class MarinhaRegistrationController implements Initializable{
             MarinhaFormController controller = loader.getController();
             controller.setMarinha(obj);
             controller.setMarinhaService(new MarinhaService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -110,6 +112,10 @@ public class MarinhaRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

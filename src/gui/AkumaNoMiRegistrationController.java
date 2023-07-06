@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.AkumaNoMi;
 import model.services.AkumaNoMiService;
 
-public class AkumaNoMiRegistrationController implements Initializable{
+public class AkumaNoMiRegistrationController implements Initializable, DataChangeListener{
 
     private AkumaNoMiService service;
 
@@ -94,6 +95,7 @@ public class AkumaNoMiRegistrationController implements Initializable{
             AkumaNoMiFormController controller = loader.getController();
             controller.setAkumaNoMi(obj);
             controller.setAkumaNoMiService(new AkumaNoMiService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -106,6 +108,10 @@ public class AkumaNoMiRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

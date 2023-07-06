@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Tipo;
 import model.services.TipoService;
 
-public class TipoRegistrationController implements Initializable{
+public class TipoRegistrationController implements Initializable, DataChangeListener{
 
     private TipoService service;
 
@@ -87,6 +88,7 @@ public class TipoRegistrationController implements Initializable{
             TipoFormController controller = loader.getController();
             controller.setTipo(obj);
             controller.setTipoService(new TipoService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -99,6 +101,10 @@ public class TipoRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }

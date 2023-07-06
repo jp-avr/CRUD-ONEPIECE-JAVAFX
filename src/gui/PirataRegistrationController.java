@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Pirata;
 import model.services.PirataService;
 
-public class PirataRegistrationController implements Initializable{
+public class PirataRegistrationController implements Initializable, DataChangeListener{
 
     private PirataService service;
 
@@ -99,6 +100,7 @@ public class PirataRegistrationController implements Initializable{
             PirataFormController controller = loader.getController(); //Pegar o controlador da tela que acabei de carregar
             controller.setPirata(obj); //Injetando no controlador o Pirata
             controller.setPirataService(new PirataService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData(); //Carregar os dados no formulario
 
             Stage dialogStage = new Stage();
@@ -111,6 +113,10 @@ public class PirataRegistrationController implements Initializable{
         }catch(IOException e) {
             Alerts.showAlert("IO Exception", "ERROR loading view", e.getMessage(), AlertType.ERROR);
         }
+    }
+
+    public void onDataChanged() {
+        updateTableView();
     }
     
 }
