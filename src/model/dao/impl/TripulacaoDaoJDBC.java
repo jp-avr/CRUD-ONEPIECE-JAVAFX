@@ -84,12 +84,13 @@ public class TripulacaoDaoJDBC implements TripulacaoDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO tripulacao " +
-				"(nome) " +
+				"(nome, cod_alianca) " +
 				"VALUES " +
-				"(?)", 
+				"(?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getCod_alianca());
 
 			int rowsAffected = st.executeUpdate();
 			

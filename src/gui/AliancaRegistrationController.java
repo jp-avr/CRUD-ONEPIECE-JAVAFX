@@ -47,7 +47,8 @@ public class AliancaRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/AliancaForm.fxml", parentStage);
+        Alianca obj = new Alianca();
+        createDialogForm(obj, "/gui/AliancaForm.fxml", parentStage);
     }
 
     public void setAliancaService(AliancaService service) {
@@ -78,10 +79,15 @@ public class AliancaRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Alianca obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            AliancaFormController controller = loader.getController();
+            controller.setAlianca(obj);
+            controller.setAliancaService(new AliancaService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

@@ -50,7 +50,8 @@ public class TripulacaoRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/TripulacaoForm.fxml", parentStage);
+        Tripulacao obj = new Tripulacao();
+        createDialogForm(obj, "/gui/TripulacaoForm.fxml", parentStage);
     }
 
     public void setTripulacaoService(TripulacaoService service) {
@@ -82,10 +83,15 @@ public class TripulacaoRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Tripulacao obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            TripulacaoFormController controller = loader.getController();
+            controller.setTripulacao(obj);
+            controller.setTripulacaoService(new TripulacaoService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

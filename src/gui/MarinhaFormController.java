@@ -4,13 +4,20 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import gui.util.Constraints;
+import gui.util.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Marinha;
+import model.services.MarinhaService;
 
 public class MarinhaFormController implements Initializable {
+
+    private Marinha entity;
+
+    private MarinhaService service;
 
     @FXML
     private TextField txtCodMarinha;
@@ -48,9 +55,30 @@ public class MarinhaFormController implements Initializable {
     @FXML
     private Button btCancelar;
 
+    public void setMarinha(Marinha entity) {
+        this.entity = entity;
+    }
+
+    public void setMarinhaService(MarinhaService service){
+        this.service = service;
+    }
+
     @FXML
     public void onBtSalvarAction(){
-        System.out.println("onBtSalvarAction");
+        entity = getFormData(); //Responsável por pegar os dados do formulário
+        service.saveOrUpdate(entity);
+    }
+
+    private Marinha getFormData() { //ELE PEGA OS DADOS DO FORMULÁRIO E RETORNA O DADO PRA MIM
+        Marinha obj = new Marinha();
+
+        obj.setCod_marinha(Utils.tryParseToInt(txtCodMarinha.getText()));
+        obj.setNome(txtNome.getText());
+        obj.setRecompensa(Utils.tryParseToInt(txtRecompensa.getText()));
+        obj.setCod_ilha(Utils.tryParseToInt(txtCodIlha.getText())); 
+        obj.setCod_tripulacao(Utils.tryParseToInt(txtCodTripulacao.getText()));
+
+        return obj;
     }
 
     @FXML
@@ -69,6 +97,15 @@ public class MarinhaFormController implements Initializable {
         Constraints.setTextFieldInteger(txtCodTripulacao);
         Constraints.setTextFieldInteger(txtRecompensa);
         Constraints.setTextFieldMaxLength(txtNome, 30);
+    }
+
+    public void updateFormData() {
+        
+        txtCodMarinha.setText(String.valueOf(entity.getCod_marinha())); //Como ele só trabalha com string usamos o valueOf
+        txtNome.setText(entity.getNome());
+        txtRecompensa.setText(String.valueOf(entity.getRecompensa()));
+        txtCodIlha.setText(String.valueOf(entity.getCod_ilha()));
+        txtCodTripulacao.setText(String.valueOf(entity.getCod_tripulacao())); 
     }
     
     

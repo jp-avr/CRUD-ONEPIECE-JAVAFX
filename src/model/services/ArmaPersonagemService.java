@@ -15,7 +15,7 @@ public class ArmaPersonagemService {
     }
 
     public void saveOrUpdate(ArmaPersonagem obj) {
-        if (obj.getCod_personagem() == null) {
+        if (obj.getCod_armapersonagem() == null) {
             dao.insert(obj);
         }else{
             dao.update(obj);

@@ -84,12 +84,13 @@ public class PersonagemDaoJDBC implements PersonagemDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO personagem " +
-				"(cod_personagem) " +
+				"(cod_pirata,cod_marinha) " +
 				"VALUES " +
-				"(?)", 
+				"(?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
-			st.setInt(1, obj.getCod_personagem());
+			st.setInt(1, obj.getCod_pirata());
+			st.setInt(2, obj.getCod_marinha());
 
 			int rowsAffected = st.executeUpdate();
 			

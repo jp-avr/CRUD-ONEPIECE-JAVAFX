@@ -24,16 +24,17 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 	}
 	
 	@Override
-	public ArmaPersonagem findById(Integer cod_arma) {
+	public ArmaPersonagem findById(Integer cod_armapersonagem) {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM armapersonagem WHERE cod_arma = ?");
-			st.setInt(1, cod_arma);
+				"SELECT * FROM armapersonagem WHERE cod_armapersonagem = ?");
+			st.setInt(1, cod_armapersonagem);
 			rs = st.executeQuery();
 			if (rs.next()) {
 				ArmaPersonagem obj = new ArmaPersonagem();
+				obj.setCod_armapersonagem(rs.getInt("cod_armapersonagem"));
 				obj.setCod_arma(rs.getInt("cod_arma"));
 				obj.setCod_personagem(rs.getInt("cod_personagem"));
 				return obj;
@@ -55,13 +56,14 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 		ResultSet rs = null;
 		try {
 			st = conn.prepareStatement(
-				"SELECT * FROM armapersonagem ORDER BY cod_arma");
+				"SELECT * FROM armapersonagem ORDER BY cod_armapersonagem");
 			rs = st.executeQuery();
 
 			List<ArmaPersonagem> list = new ArrayList<>();
 
 			while (rs.next()) {
 				ArmaPersonagem obj = new ArmaPersonagem();
+				obj.setCod_armapersonagem(rs.getInt("cod_armapersonagem"));
 				obj.setCod_arma(rs.getInt("cod_arma"));
 				obj.setCod_personagem(rs.getInt("cod_personagem"));
 				list.add(obj);
@@ -83,12 +85,13 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO armapersonagem " +
-				"(cod_arma) " +
+				"(cod_arma, cod_personagem) " +
 				"VALUES " +
-				"(?)", 
+				"(?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
 			st.setInt(1, obj.getCod_arma());
+			st.setInt(2, obj.getCod_personagem());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -117,9 +120,10 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE armapersonagem " +
-				"SET cod_arma = ? " +
-				"WHERE cod_arma = ?");
+				"SET cod_armapersonagem = ? " +
+				"WHERE cod_armapersonagem = ?");
 
+			
 			st.setInt(1, obj.getCod_personagem());
 			st.setInt(2, obj.getCod_arma());
 
@@ -138,7 +142,7 @@ public class ArmaPersonagemDaoJDBC implements ArmaPersonagemDao {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM armapersonagem WHERE cod_arma = ?");
+				"DELETE FROM armapersonagem WHERE cod_armapersonagem = ?");
 
 			st.setInt(1, cod_arma);
 

@@ -47,7 +47,8 @@ public class ArcoRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/ArcoForm.fxml", parentStage);
+        Arco obj = new Arco();
+        createDialogForm(obj, "/gui/ArcoForm.fxml", parentStage);
     }
 
     public void setArcoService(ArcoService service) {
@@ -78,10 +79,15 @@ public class ArcoRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Arco obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            ArcoFormController controller = loader.getController();
+            controller.setArco(obj);
+            controller.setArcoService(new ArcoService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

@@ -56,7 +56,8 @@ public class MarinhaRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/MarinhaForm.fxml", parentStage);        
+        Marinha obj = new Marinha();
+        createDialogForm(obj,"/gui/MarinhaForm.fxml", parentStage);        
     }
 
     public void setMarinhaService(MarinhaService service) {
@@ -89,10 +90,15 @@ public class MarinhaRegistrationController implements Initializable{
         tableViewPirata.setItems(obsList);
     }
 
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Marinha obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            MarinhaFormController controller = loader.getController();
+            controller.setMarinha(obj);
+            controller.setMarinhaService(new MarinhaService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

@@ -35,6 +35,9 @@ public class ArmaPersonagemRegistrationController implements Initializable{
     private TableView<ArmaPersonagem> tableViewPirata;
 
     @FXML
+    private TableColumn<ArmaPersonagem, Integer> TableColumnArmaPersonagem;
+
+    @FXML
     private TableColumn<ArmaPersonagem, Integer> TableColumnCodArma;
 
     @FXML
@@ -48,7 +51,8 @@ public class ArmaPersonagemRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/ArmaPersonagemForm.fxml", parentStage);
+        ArmaPersonagem obj = new ArmaPersonagem();
+        createDialogForm(obj, "/gui/ArmaPersonagemForm.fxml", parentStage);
     }
 
     public void setArmaPersonagemService(ArmaPersonagemService service) {
@@ -61,6 +65,8 @@ public class ArmaPersonagemRegistrationController implements Initializable{
     }
 
     private void initializeNodes() {
+
+        TableColumnArmaPersonagem.setCellValueFactory(new PropertyValueFactory<>("cod_armapersonagem"));
         TableColumnCodArma.setCellValueFactory(new PropertyValueFactory<>("cod_arma"));
         TableColumnCodPersonagem.setCellValueFactory(new PropertyValueFactory<>("cod_personagem"));
 
@@ -79,10 +85,15 @@ public class ArmaPersonagemRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(ArmaPersonagem obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            ArmaPersonagemFormController controller = loader.getController();
+            controller.setArmaPersonagem(obj);
+            controller.setArmaPersonagemService(new ArmaPersonagemService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

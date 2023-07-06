@@ -53,7 +53,8 @@ public class AkumaNoMiRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/AkumaNoMiForm.fxml", parentStage);
+        AkumaNoMi obj = new AkumaNoMi();
+        createDialogForm(obj, "/gui/AkumaNoMiForm.fxml", parentStage);
     }
 
     public void setAkumaNoMiService(AkumaNoMiService service) {
@@ -85,10 +86,15 @@ public class AkumaNoMiRegistrationController implements Initializable{
         tableViewPirata.setItems(obsList);
     }
 
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(AkumaNoMi obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+            
+            AkumaNoMiFormController controller = loader.getController();
+            controller.setAkumaNoMi(obj);
+            controller.setAkumaNoMiService(new AkumaNoMiService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

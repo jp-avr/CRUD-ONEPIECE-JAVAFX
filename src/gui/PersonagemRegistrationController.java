@@ -50,7 +50,8 @@ public class PersonagemRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/PersonagemForm.fxml", parentStage);
+        Personagem obj = new Personagem();
+        createDialogForm(obj, "/gui/PersonagemForm.fxml", parentStage);
     }
 
     public void setPersonagemService(PersonagemService service) {
@@ -81,10 +82,15 @@ public class PersonagemRegistrationController implements Initializable{
         tableViewPirata.setItems(obsList);
     }
 
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Personagem obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            PersonagemFormController controller = loader.getController();
+            controller.setPersonagem(obj);
+            controller.setPersonagemService(new PersonagemService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

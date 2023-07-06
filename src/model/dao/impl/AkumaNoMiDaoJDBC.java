@@ -86,12 +86,14 @@ public class AkumaNoMiDaoJDBC implements AkumaNoMiDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO akumanomi " +
-				"(nome) " +
+				"(nome, cod_tipo, cod_personagem) " +
 				"VALUES " +
-				"(?)", 
+				"(?,?,?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getNome());
+			st.setInt(2, obj.getCod_tipo());
+			st.setInt(3, obj.getCod_personagem());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -121,7 +123,7 @@ public class AkumaNoMiDaoJDBC implements AkumaNoMiDao {
 			st = conn.prepareStatement(
 				"UPDATE akumanomi " +
 				"SET nome = ? " +
-				"WHERE cod_marinha = ?");
+				"WHERE cod_fruta = ?");
 
 			st.setString(1, obj.getNome());
 			st.setInt(2, obj.getCod_fruta());

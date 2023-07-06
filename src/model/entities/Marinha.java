@@ -3,13 +3,13 @@ package model.entities;
 public class Marinha {
     private Integer cod_marinha;
     private String nome;
-    private double recompensa;
+    private Integer recompensa;
     private Integer cod_ilha;
     private Integer cod_tripulacao;
 
     public Marinha() {}
 
-    public Marinha(Integer cod_marinha, String nome, double recompensa, Integer cod_ilha, Integer cod_tripulacao) {
+    public Marinha(Integer cod_marinha, String nome, Integer recompensa, Integer cod_ilha, Integer cod_tripulacao) {
         this.cod_marinha = cod_marinha;
         this.nome = nome;
         this.recompensa = recompensa;
@@ -33,11 +33,11 @@ public class Marinha {
         this.nome = nome;
     }
 
-    public double getRecompensa() {
+    public Integer getRecompensa() {
         return recompensa;
     }
 
-    public void setRecompensa(double recompensa) {
+    public void setRecompensa(Integer recompensa) {
         this.recompensa = recompensa;
     }
 

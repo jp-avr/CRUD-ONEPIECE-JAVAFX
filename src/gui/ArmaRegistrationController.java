@@ -47,7 +47,8 @@ public class ArmaRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/ArmaForm.fxml", parentStage);
+        Arma obj = new Arma();
+        createDialogForm(obj, "/gui/ArmaForm.fxml", parentStage);
     }
 
     public void setArmaService(ArmaService service) {
@@ -78,10 +79,15 @@ public class ArmaRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Arma obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            ArmaFormController controller = loader.getController();
+            controller.setArma(obj);
+            controller.setArmaService(new ArmaService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");

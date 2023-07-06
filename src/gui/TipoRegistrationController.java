@@ -47,7 +47,8 @@ public class TipoRegistrationController implements Initializable{
     @FXML
     public void onBtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("/gui/TipoForm.fxml", parentStage);
+        Tipo obj = new Tipo();
+        createDialogForm(obj, "/gui/TipoForm.fxml", parentStage);
     }
 
     public void setTipoService(TipoService service) {
@@ -78,10 +79,15 @@ public class TipoRegistrationController implements Initializable{
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
-    private void createDialogForm(String absoluteName, Stage parentStage) {
+    private void createDialogForm(Tipo obj, String absoluteName, Stage parentStage) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
+
+            TipoFormController controller = loader.getController();
+            controller.setTipo(obj);
+            controller.setTipoService(new TipoService());
+            controller.updateFormData();
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Preencha os dados");
