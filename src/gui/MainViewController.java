@@ -20,6 +20,7 @@ import model.services.PirataService;
 import model.services.TipoService;
 import model.services.TripulacaoService;
 import model.services.AkumaNoMiService;
+import model.services.AliancaService;
 import model.services.ArcoService;
 import model.services.ArmaPersonagemService;
 import model.services.ArmaService;
@@ -275,7 +276,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE ALIANCA
     @FXML
     public void onMenuItemInserirAliancaAction(){
-        System.out.println("onMenuItemInserirAliancaAction");
+        loadView("/gui/AliancaRegistration.fxml", (AliancaRegistrationController controller) -> {
+            controller.setAliancaService(new AliancaService());
+            controller.updateTableView();
+        });
     }
 
     @FXML

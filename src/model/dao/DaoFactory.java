@@ -5,6 +5,7 @@ import model.dao.impl.PirataDaoJDBC;
 import model.dao.impl.TipoDaoJDBC;
 import model.dao.impl.TripulacaoDaoJDBC;
 import model.dao.impl.AkumaNoMiDaoJDBC;
+import model.dao.impl.AliancaDaoJDBC;
 import model.dao.impl.ArcoDaoJDBC;
 import model.dao.impl.ArmaDaoJDBC;
 import model.dao.impl.ArmaPersonagemDaoJDBC;
@@ -52,6 +53,10 @@ public class DaoFactory {
 
 	public static TripulacaoDao createTripulacaoDao() {
 		return new TripulacaoDaoJDBC(DB.getConnection());
+	}
+
+	public static AliancaDao createAliancaDao() {
+		return new AliancaDaoJDBC(DB.getConnection());
 	}
 	
 }
