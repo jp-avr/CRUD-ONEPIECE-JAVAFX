@@ -18,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
 import model.services.AkumaNoMiService;
+import model.services.ArmaService;
 import model.services.MarinhaService;
 import model.services.PersonagemService;
 import model.services.IlhaService;
@@ -187,7 +188,10 @@ public class MainViewController implements Initializable{
     //ACTIONS DE ARMA
     @FXML
     public void onMenuItemInserirArmaAction(){
-        System.out.println("onMenuItemInserirArmaAction");
+        loadView("/gui/ArmaRegistration.fxml", (ArmaRegistrationController controller) -> {
+            controller.setArmaService(new ArmaService());
+            controller.updateTableView();
+        });
     }
     @FXML
     public void onMenuItemLerDadosArmaAction(){
