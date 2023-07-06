@@ -21,4 +21,8 @@ public class ArmaService {
             dao.update(obj);
         }
     }
+
+    public void remove(Arma obj) {
+        dao.deleteById(obj.getCod_arma());
+    }
 }

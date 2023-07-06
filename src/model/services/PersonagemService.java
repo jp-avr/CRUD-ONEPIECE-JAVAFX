@@ -21,4 +21,8 @@ public class PersonagemService {
             dao.update(obj);
         }
     }
+
+    public void remove(Personagem obj) {
+        dao.deleteById(obj.getCod_personagem());
+    }
 }

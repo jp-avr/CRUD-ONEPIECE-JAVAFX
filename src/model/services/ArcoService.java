@@ -21,4 +21,8 @@ public class ArcoService {
             dao.update(obj);
         }
     }
+
+    public void remove(Arco obj) {
+        dao.deleteById(obj.getCod_arco());
+    }
 }

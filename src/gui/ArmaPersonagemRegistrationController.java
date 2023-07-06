@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -18,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -48,6 +51,9 @@ public class ArmaPersonagemRegistrationController implements Initializable, Data
 
     @FXML
     private TableColumn<ArmaPersonagem, ArmaPersonagem> TableColumnEDIT;
+
+    @FXML
+    private TableColumn<ArmaPersonagem, ArmaPersonagem> TableColumnREMOVE;
 
     @FXML
     private Button btNew;
@@ -89,6 +95,7 @@ public class ArmaPersonagemRegistrationController implements Initializable, Data
         obsList = FXCollections.observableArrayList(list);
         tableViewPirata.setItems(obsList);
         initEditButtons();
+        initRemoveButtons();
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
@@ -138,6 +145,43 @@ public class ArmaPersonagemRegistrationController implements Initializable, Data
                     event -> createDialogForm(obj, "/gui/ArmaPersonagemForm.fxml", Utils.currentStage(event)));
             }           
         });
+    }
+
+    private void initRemoveButtons() {
+        TableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        TableColumnREMOVE.setCellFactory(param -> new TableCell<ArmaPersonagem, ArmaPersonagem>() {
+            private final Button button = new Button("Remover");
+
+            @Override
+            protected void updateItem(ArmaPersonagem obj, boolean empty) {
+                super.updateItem(obj, empty);
+
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(button);
+                button.setOnAction(event -> removeEntity(obj));
+            }           
+        });
+    }
+
+    private void removeEntity(ArmaPersonagem obj) {
+        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que irá deletar?");
+
+        if (result.get() == ButtonType.OK) {
+            if (service == null) {
+                throw new IllegalStateException("Service estava nulo");
+            }
+            try {
+                service.remove(obj);
+                updateTableView();
+            }catch (DbIntegrityException e) {
+                Alerts.showAlert("ERRO AO REMOVER OBJETO", null, e.getMessage(), AlertType.ERROR);
+            }
+            
+        }
     }
     
 }

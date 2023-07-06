@@ -21,4 +21,8 @@ public class IlhaService {
             dao.update(obj);
         }
     }
+
+    public void remove(Ilha obj) {
+        dao.deleteById(obj.getCod_ilha());
+    }
 }

@@ -21,4 +21,8 @@ public class MarinhaService {
             dao.update(obj);
         }
     }
+
+    public void remove(Marinha obj) {
+        dao.deleteById(obj.getCod_marinha());
+    }
 }

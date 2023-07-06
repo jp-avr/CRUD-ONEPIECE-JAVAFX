@@ -21,4 +21,8 @@ public class PirataService {
             dao.update(obj);
         }
     }
+
+    public void remove(Pirata obj) {
+        dao.deleteById(obj.getCod_pirata());
+    }
 }

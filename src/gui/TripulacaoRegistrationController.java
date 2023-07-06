@@ -3,9 +3,11 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -18,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +50,9 @@ public class TripulacaoRegistrationController implements Initializable, DataChan
 
     @FXML
     private TableColumn<Tripulacao, Tripulacao> TableColumnEDIT;
+
+    @FXML
+    private TableColumn<Tripulacao, Tripulacao> TableColumnREMOVE;
 
     @FXML
     private Button btNew;
@@ -87,6 +93,7 @@ public class TripulacaoRegistrationController implements Initializable, DataChan
         obsList = FXCollections.observableArrayList(list);
         tableViewPirata.setItems(obsList);
         initEditButtons();
+        initRemoveButtons();
     }
 
     //FUNÇÃO PARA CARREGAR OS DADOS DO FORMULÁRIO
@@ -136,6 +143,43 @@ public class TripulacaoRegistrationController implements Initializable, DataChan
                     event -> createDialogForm(obj, "/gui/TripulacaoForm.fxml", Utils.currentStage(event)));
             }           
         });
+    }
+
+    private void initRemoveButtons() {
+        TableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        TableColumnREMOVE.setCellFactory(param -> new TableCell<Tripulacao, Tripulacao>() {
+            private final Button button = new Button("Remover");
+
+            @Override
+            protected void updateItem(Tripulacao obj, boolean empty) {
+                super.updateItem(obj, empty);
+
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(button);
+                button.setOnAction(event -> removeEntity(obj));
+            }           
+        });
+    }
+
+    private void removeEntity(Tripulacao obj) {
+        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Tem certeza que irá deletar?");
+
+        if (result.get() == ButtonType.OK) {
+            if (service == null) {
+                throw new IllegalStateException("Service estava nulo");
+            }
+            try {
+                service.remove(obj);
+                updateTableView();
+            }catch (DbIntegrityException e) {
+                Alerts.showAlert("ERRO AO REMOVER OBJETO", null, e.getMessage(), AlertType.ERROR);
+            }
+            
+        }
     }
     
 }

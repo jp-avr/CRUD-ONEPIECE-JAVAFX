@@ -21,4 +21,8 @@ public class AkumaNoMiService {
             dao.update(obj);
         }
     }
+
+    public void remove(AkumaNoMi obj) {
+        dao.deleteById(obj.getCod_fruta());
+    }
 }

@@ -21,4 +21,8 @@ public class AliancaService {
             dao.update(obj);
         }
     }
+
+    public void remove(Alianca obj) {
+        dao.deleteById(obj.getCod_alianca());
+    }
 }

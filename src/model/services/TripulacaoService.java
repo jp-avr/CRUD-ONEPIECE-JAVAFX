@@ -21,4 +21,8 @@ public class TripulacaoService {
             dao.update(obj);
         }
     }
+
+    public void remove(Tripulacao obj) {
+        dao.deleteById(obj.getCod_tripulacao());
+    }
 }

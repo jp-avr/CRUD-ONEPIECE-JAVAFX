@@ -30,6 +30,7 @@
           <TableColumn fx:id="TableColumnCodPersonagem" prefWidth="109.33334350585938" text="Cod_personagem" />
             <TableColumn fx:id="TableColumnCodArma" prefWidth="95.33331298828125" text="Cod_arma" />
             <TableColumn fx:id="TableColumnEDIT" prefWidth="75.0" />
+            <TableColumn fx:id="TableColumnREMOVE" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

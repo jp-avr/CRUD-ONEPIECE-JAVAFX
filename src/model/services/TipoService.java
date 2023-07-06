@@ -21,4 +21,8 @@ public class TipoService {
             dao.update(obj);
         }
     }
+
+    public void remove(Tipo obj) {
+        dao.deleteById(obj.getCod_tipo());
+    }
 }
