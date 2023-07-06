@@ -17,6 +17,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import model.services.PirataService;
+import model.services.TipoService;
 import model.services.TripulacaoService;
 import model.services.AkumaNoMiService;
 import model.services.ArcoService;
@@ -260,7 +261,10 @@ public class MainViewController implements Initializable{
     //ACTIONS TIPO
     @FXML
     public void onMenuItemInserirTipoAction(){
-        System.out.println("onMenuItemInserirTipoAction");
+        loadView("/gui/TipoRegistration.fxml", (TipoRegistrationController controller) -> {
+            controller.setTipoService(new TipoService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
