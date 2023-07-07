@@ -2,7 +2,8 @@ package model.entities;
 
 import java.io.Serializable;
 
-public class Pirata implements Serializable{
+public class Pirata implements Serializable{ //Serializable serve para os objetos poderem ser transformados em sequencia de bytes
+    //serve para o objeto seja gravado em arquivo, seja trafegado em rede etc
 
     private static final long serialVersionUID = 1L;
 
@@ -63,7 +64,7 @@ public class Pirata implements Serializable{
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode() { //SERVE PARA COMPARAR OS OBJETOS PELO CONTEÚDO E NÃO PELA REFERÊNCIA DE PONTEIROS
         final int prime = 31;
         int result = 1;
         result = prime * result * ((cod_pirata == null) ? 0 : cod_pirata.hashCode());
@@ -71,7 +72,7 @@ public class Pirata implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) { //
         if (this == obj)
             return true;
         if (obj == null)
