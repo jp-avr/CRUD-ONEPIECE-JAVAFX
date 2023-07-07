@@ -11,12 +11,12 @@ import java.util.Properties;
 
 public class DB {
 
-    private static Connection conn = null;
+    private static Connection conn = null; //Objeto de conexão com um banco de dados do
 
     public static Connection getConnection() {
         if (conn == null) {
             try{
-                Properties props = loadProperties();
+                //Properties props = loadProperties();
                 //String url = props.getProperty("dburl");
                 conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/prova3DB2", "postgres", "1234");
             }catch (SQLException e) {
@@ -36,11 +36,11 @@ public class DB {
         }
     }
 
-    public static Properties loadProperties() {
+    public static Properties loadProperties() { //Método para carregar as propriedades definidas no db.properties 
         try (FileInputStream fs = new FileInputStream("src/db.properties")) {
             
             Properties props = new Properties();
-            props.load(fs);
+            props.load(fs); //Faz a leitura do arquivo propeties apontado pelo input fs
             return props;
         }catch (IOException e) {
             throw new DbException(e.getMessage());
