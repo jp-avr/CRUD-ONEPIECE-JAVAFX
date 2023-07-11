@@ -13,5 +13,12 @@ Os arquivos compilados vão se gerados na pasta `bin` por padrão.
 
 > Caso queira customizar a estrutura da pasta, abra o `.vscode/settings.json` e atualize os dados.
 
-## Dependency Management
+## Arquivos
 
+Como o projeto é feito utililizando JavaFX, sua estrutura é no modelo MVC (Model, View e Controller).
+As subpastas estão divividas entre:
+
+- `model`: Pasta onde irão encontrar os services e entities.
+- `application`: Onde ficará o Main do projeto.
+- `db`: Onde estará a conexão com o banco de dados e as exceções personalizadas
+- `gui`: é onde estão todos os controllers e views
